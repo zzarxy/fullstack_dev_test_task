@@ -7,6 +7,9 @@
     {
         padding-right: 30px;
     }
+      .burger-icon {
+        display: none;
+    }
 }
 @include media-breakpoint-down(xxl) {
     //max-width: 1399.98px
@@ -23,9 +26,16 @@
             }
         }
     }
+      .burger-icon {
+        display: none;
+    }
 }
 @include media-breakpoint-down(xl) {
     //max-width: 1199.98px
+      .burger-icon {
+        margin-left: 100px;
+        display: block;
+    }
     .custom-class {
         display: block;
     }
@@ -171,7 +181,7 @@
     }
     .burger-icon
     {
-        top: 25px;
+        top: 44px;
     }
     .sticky-bar.stick .burger-icon
     {
@@ -383,7 +393,7 @@
     }
     .burger-icon
     {
-        top: 17px;
+        top: 41px;
     }
     .sticky-bar.stick .burger-icon
     {
@@ -525,6 +535,10 @@
     .box-optimized
     {
         padding: 20px;
+    }
+    .burger-icon
+    {
+        top: 26px;
     }
     .block-we-do
     {

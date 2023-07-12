@@ -29,13 +29,15 @@
 // Layout-related sections
 @import
   'layout/header',
+  'layout/footer',
   'layout/navigation',
   'layout/sidebar',
   'layout/spacing';
 
 // Page-specific styles
 @import
-  'pages/index';
+  'pages/index',
+  'pages/main-page';
 
   // Responsive
 @import

@@ -451,10 +451,10 @@
       $(this).html(
         event.strftime(
           "" +
-            '<span class="countdown-section"><span class="countdown-amount hover-up">%D</span><span class="countdown-period"> days </span></span>' +
-            '<span class="countdown-section"><span class="countdown-amount hover-up">%H</span><span class="countdown-period"> hours </span></span>' +
-            '<span class="countdown-section"><span class="countdown-amount hover-up">%M</span><span class="countdown-period"> mins </span></span>' +
-            '<span class="countdown-section"><span class="countdown-amount hover-up">%S</span><span class="countdown-period"> sec </span></span>'
+          '<span class="countdown-section"><span class="countdown-amount hover-up">%D</span><span class="countdown-period"> days </span></span>' +
+          '<span class="countdown-section"><span class="countdown-amount hover-up">%H</span><span class="countdown-period"> hours </span></span>' +
+          '<span class="countdown-section"><span class="countdown-amount hover-up">%M</span><span class="countdown-period"> mins </span></span>' +
+          '<span class="countdown-section"><span class="countdown-amount hover-up">%S</span><span class="countdown-period"> sec </span></span>'
         )
       );
     });
@@ -522,7 +522,7 @@
       }
     });
   });
-  
+
   // Init function billed
   checkBilled();
   checkBilled2();
@@ -544,26 +544,84 @@ function checkBilled() {
 }
 // Check billed Pricing 2
 function checkBilled2() {
-    var checkBox = $("#cb_billed_type");
-    var forMonth = $(".for-month");
-    var forYear = $(".for-year");
-    var billMonth = $('.text-billed-month');
-    var billYear = $('.text-billed-year');
-    for (var i = 0; i < forMonth.length; i++) {
-        if (checkBox.is(":checked")) {
-            forYear.eq(i).addClass("display-year");
-            billYear.addClass('active');
-            billMonth.removeClass('active');
-            forMonth.eq(i).removeClass("display-month");
-        } else {
-            forYear.eq(i).removeClass("display-year");
-            billMonth.addClass('active');
-            billYear.removeClass('active');
-            forMonth.eq(i).addClass("display-month");
-        }
+  var checkBox = $("#cb_billed_type");
+  var forMonth = $(".for-month");
+  var forYear = $(".for-year");
+  var billMonth = $('.text-billed-month');
+  var billYear = $('.text-billed-year');
+  for (var i = 0; i < forMonth.length; i++) {
+    if (checkBox.is(":checked")) {
+      forYear.eq(i).addClass("display-year");
+      billYear.addClass('active');
+      billMonth.removeClass('active');
+      forMonth.eq(i).removeClass("display-month");
+    } else {
+      forYear.eq(i).removeClass("display-year");
+      billMonth.addClass('active');
+      billYear.removeClass('active');
+      forMonth.eq(i).addClass("display-month");
     }
+  }
 }
 //Perfect Scrollbar
 if ($(".mobile-header-wrapper-inner").length) {
   const ps = new PerfectScrollbar(".mobile-header-wrapper-inner");
 }
+//Post data
+document.addEventListener('DOMContentLoaded', function () {
+  var contactForm = document.getElementById('contact-form');
+  var nameInput, emailInput, messageInput;
+
+  contactForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    nameInput = document.getElementById('name-input');
+    emailInput = document.getElementById('email-input');
+    messageInput = document.getElementById('message-input');
+
+    var formData = {
+      name: nameInput.value,
+      email: emailInput.value,
+      message: messageInput.value
+    };
+
+    fetch('https://api.byteplex.info/api/test/contact/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+      .then(function (response) {
+        if (response.status === 400) {
+          return response.json().then(function (data) {
+            handleErrorResponse(data);
+          });
+        } else {
+          // Handle successful response here
+        }
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  });
+
+  function handleErrorResponse(data) {
+    removeErrorMessages();
+    console.log(data)
+    if (data.email && data.email.length > 0) {
+      var emailError = document.createElement('span');
+      emailError.classList.add('error-message');
+      emailError.textContent = data.email[0];
+      emailInput.parentNode.appendChild(emailError);
+    }
+  }
+
+  function removeErrorMessages() {
+    var errorMessages = document.querySelectorAll('.error-message');
+
+    errorMessages.forEach(function (errorMessage) {
+      errorMessage.remove();
+    });
+  }
+});

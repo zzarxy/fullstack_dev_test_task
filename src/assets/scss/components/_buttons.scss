@@ -4,7 +4,6 @@
     font-size: $font-lg;
     line-height: 22px;
     transition: 0.2s;
-    letter-spacing: 0.45px;
     border-radius: 50px;
     &.btn-square
     {
@@ -110,7 +109,7 @@
         border-radius: 50px;
         font-size: $font-lg;
         line-height: 22px;
-        font-family: $font-heading;
+        font-family: $font-text;
         font-weight: bold;
         &.icon-arrow-right-white:hover {
             background-color: $color-gray-100;
